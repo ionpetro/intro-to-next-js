@@ -1,9 +1,14 @@
 // pages/index.jsx
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import Link from "next/link";
+// import Browser from "../src/components/browser";
+import dynamic from "next/dynamic";
 
-export default ({content}) => (
+const BrowserComponent = dynamic(() => import("../src/components/browser"), {
+  ssr: false,
+});
+
+export default ({ content }) => (
   <div sx={{ height: `calc(100vh - 60px)` }}>
     <div
       sx={{
@@ -13,9 +18,8 @@ export default ({content}) => (
         height: "100%",
       }}
     >
-      <h1 sx={{ fontSize: 8, my: 0 }}>
-        {content.title}
-      </h1>
+      <h1 sx={{ fontSize: 8, my: 0 }}>{content.title}</h1>
+      <BrowserComponent />
     </div>
   </div>
 );
@@ -26,8 +30,8 @@ export function getStaticProps() {
   return {
     props: {
       content: {
-        title: 'This is my app'
-      }
-    }
-  }
+        title: "This is my app",
+      },
+    },
+  };
 }
